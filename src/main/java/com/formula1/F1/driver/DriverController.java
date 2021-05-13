@@ -10,14 +10,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class DriverController {
 
     @GetMapping("/driver")
-    public String greetingForm(Model model) {
+    public String driverForm(Model model) {
         model.addAttribute("driver", new Driver());
         return "driver";
     }
 
     @PostMapping("/driver")
-    public String greetingSubmit(@ModelAttribute Driver driver, Model model) {
-        model.addAttribute("driver", driver);
+    public String driverSubmit(@ModelAttribute Driver driver, Model model) {
+        DriverApiCaller apiCaller = new DriverApiCaller(driver.getId());
+        apiCaller.getDriverInformation(driver);
+
+        model.addAttribute("id", driver);
+        model.addAttribute("number", driver);
+        model.addAttribute("code", driver);
+        model.addAttribute("url", driver);
+        model.addAttribute("name", driver);
+        model.addAttribute("surname", driver);
+        model.addAttribute("dateOfBirth", driver);
+        model.addAttribute("nationality", driver);
         return "result";
     }
 

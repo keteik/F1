@@ -5,8 +5,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
-<p th:text="'id: ' + ${driver.id}" />
-<a href="/driver">Submit another message</a>
+<h1>Driver Information</h1>
+<p th:text="'Id: ' + ${driver.id}" />
+<p th:text="'Number: ' + ${driver.number}" />
+<p th:text="'Code: ' + ${driver.code}" />
+<a th:href="@{${driver.url}}"><p th:text="'Url: ' + ${driver.url}" /></a>
+<!--<p th:text="'Url: ' + ${driver.url}" />-->
+<p th:text="'Name: ' + ${driver.name}" />
+<p th:text="'Surname: ' + ${driver.surname}" />
+<p th:text="'dateOfBirth: ' + ${driver.dateOfBirth}" />
+<p th:text="'Nationality: ' + ${driver.nationality}" />
+<a href="/driver">Submit another driver</a>
 </body>
 </html>
