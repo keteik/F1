@@ -1,7 +1,5 @@
 package com.formula1.F1.driver;
 
-import java.util.ArrayList;
-
 public class DriverConstructor {
     private String constructorId;
     private String url;

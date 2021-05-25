@@ -6,14 +6,16 @@
   </head>
   <body>
     <h1>Driver Information</h1>
-    <p th:text="'Id: ' + ${driverInformation.driverId}" />
-    <p th:text="'Number: ' + ${driverInformation.number}" />
-    <p th:text="'Code: ' + ${driverInformation.code}" />
-    <a th:href="@{${driverInformation.url}}"><p th:text="'Url: ' + ${driverInformation.url}" /></a>
-    <p th:text="'Name: ' + ${driverInformation.name}" />
-    <p th:text="'Surname: ' + ${driverInformation.surname}" />
-    <p th:text="'Date of birth: ' + ${driverInformation.dateOfBirth}" />
-    <p th:text="'Nationality: ' + ${driverInformation.nationality}" />
+    <tr th:if="${driverInformation != null}">
+      <p th:text="'Id: ' + ${driverInformation.driverId}" />
+      <p th:text="'Number: ' + ${driverInformation.number}" />
+      <p th:text="'Code: ' + ${driverInformation.code}" />
+      <a th:href="@{${driverInformation.url}}"><p th:text="'Url: ' + ${driverInformation.url}" /></a>
+      <p th:text="'Name: ' + ${driverInformation.name}" />
+      <p th:text="'Surname: ' + ${driverInformation.surname}" />
+      <p th:text="'Date of birth: ' + ${driverInformation.dateOfBirth}" />
+      <p th:text="'Nationality: ' + ${driverInformation.nationality}" />
+    </tr>
     <a href="/driver-information">Submit another driver</a>
   </body>
 </html>

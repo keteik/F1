@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <h1>Driver Constructors</h1>
+    <h1>Driver Constructor</h1>
     <tr th:each="driverCon: ${driverConstructorList}">
       <p th:text="'ConstructorId: ' + ${driverCon.constructorId}" />
       <a th:href="@{${driverCon.url}}"><p th:text="'Wikipedia: ' + ${driverCon.url}" /></a>

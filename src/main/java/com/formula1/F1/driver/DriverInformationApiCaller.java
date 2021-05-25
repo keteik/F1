@@ -11,7 +11,9 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class DriverInformationApiCaller {
-    String driverId;
+    private String driverId;
+    private DriverInformation driverInformation;
+
 
     DriverInformationApiCaller(String driverId) {
         this.driverId = driverId;
@@ -61,21 +63,21 @@ public class DriverInformationApiCaller {
             jsonData = (JSONObject) jsonData.get("DriverTable");
             JSONArray driverData = (JSONArray) jsonData.get("Drivers");
 
-            JSONObject info = (JSONObject) driverData.get(0);
+            if(driverData.size() != 0) {
+                JSONObject info = (JSONObject) driverData.get(0);
 
-            DriverInformation driverInformation = new DriverInformation();
+                driverInformation = new DriverInformation();
+                driverInformation.setDriverId(info.get("driverId").toString());
+                driverInformation.setNumber(info.get("permanentNumber").toString());
+                driverInformation.setCode(info.get("code").toString());
+                driverInformation.setUrl(info.get("url").toString());
+                driverInformation.setName(info.get("givenName").toString());
+                driverInformation.setSurname(info.get("familyName").toString());
+                driverInformation.setDateOfBirth(info.get("dateOfBirth").toString());
+                driverInformation.setNationality(info.get("nationality").toString());
 
-            driverInformation.setDriverId(info.get("driverId").toString());
-            driverInformation.setNumber(info.get("permanentNumber").toString());
-            driverInformation.setCode(info.get("code").toString());
-            driverInformation.setUrl(info.get("url").toString());
-            driverInformation.setName(info.get("givenName").toString());
-            driverInformation.setSurname(info.get("familyName").toString());
-            driverInformation.setDateOfBirth(info.get("dateOfBirth").toString());
-            driverInformation.setNationality(info.get("nationality").toString());
-
-            driver.setDriverInformation(driverInformation);
-
+                driver.setDriverInformation(driverInformation);
+            }
         }catch (IOException | ParseException e){
             e.printStackTrace();
         }

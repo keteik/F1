@@ -1,7 +1,6 @@
 package com.formula1.F1.driver;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Driver {
 

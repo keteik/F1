@@ -71,8 +71,8 @@ public class DriverConstructorApiCaller {
             DriverConstructor driverConstructor;
 
 
-            for(int i = 0; i < driverConstructorData.size(); i++){
-                JSONObject info = (JSONObject) driverConstructorData.get(i);
+            for (Object i : driverConstructorData) {
+                JSONObject info = (JSONObject) i;
                 driverConstructor = new DriverConstructor();
 
                 driverConstructor.setConstructorId(info.get("constructorId").toString());
