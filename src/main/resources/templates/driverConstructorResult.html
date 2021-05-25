@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Driver Constructors</h1>
+    <tr th:each="driverCon: ${driverConstructorList}">
+      <p th:text="'ConstructorId: ' + ${driverCon.constructorId}" />
+      <a th:href="@{${driverCon.url}}"><p th:text="'Wikipedia: ' + ${driverCon.url}" /></a>
+      <p th:text="'Name: ' + ${driverCon.name}" />
+      <p th:text="'Nationality: ' + ${driverCon.nationality}" />
+      <br>
+    </tr>
+    <a href="/driver-constructor">Submit another driver</a>
+  </body>
+</html>

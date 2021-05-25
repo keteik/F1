@@ -2,18 +2,21 @@ package com.formula1.F1.driver;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DriverApiCaller {
-    String driverId;
+public class DriverConstructorApiCaller {
+    private String driverId;
 
-    DriverApiCaller(String driverId) { this.driverId = driverId; }
+    DriverConstructorApiCaller(String driverId){
+        this.driverId = driverId;
+    }
 
     URL makeRequest(String target){
         URL url= null;
@@ -38,10 +41,14 @@ public class DriverApiCaller {
         return url;
     }
 
-    void getDriverInformation(Driver driver) {
+    void getDriverConstructors(Driver driver){
+
+
         String url = "http://ergast.com/api/f1/drivers/";
         url += driverId;
+        url += "/constructors";
         url += ".json";
+
 
         try{
             Scanner sc = new Scanner(makeRequest(url).openStream());
@@ -55,19 +62,28 @@ public class DriverApiCaller {
 
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(content);
+
             jsonData = (JSONObject) jsonData.get("MRData");
-            jsonData = (JSONObject) jsonData.get("DriverTable");
-            JSONArray driverData = (JSONArray) jsonData.get("Drivers");
+            jsonData = (JSONObject) jsonData.get("ConstructorTable");
+            JSONArray driverConstructorData = (JSONArray) jsonData.get("Constructors");
 
-            JSONObject info = (JSONObject) driverData.get(0);
+            ArrayList<DriverConstructor> driverConstructorList = new ArrayList<>();
+            DriverConstructor driverConstructor;
 
-            driver.setNumber(info.get("permanentNumber").toString());
-            driver.setCode(info.get("code").toString());
-            driver.setUrl(info.get("url").toString());
-            driver.setName(info.get("givenName").toString());
-            driver.setSurname(info.get("familyName").toString());
-            driver.setDateOfBirth(info.get("dateOfBirth").toString());
-            driver.setNationality(info.get("nationality").toString());
+
+            for(int i = 0; i < driverConstructorData.size(); i++){
+                JSONObject info = (JSONObject) driverConstructorData.get(i);
+                driverConstructor = new DriverConstructor();
+
+                driverConstructor.setConstructorId(info.get("constructorId").toString());
+                driverConstructor.setUrl(info.get("url").toString());
+                driverConstructor.setName(info.get("name").toString());
+                driverConstructor.setNationality(info.get("nationality").toString());
+
+                driverConstructorList.add(driverConstructor);
+            }
+
+            driver.setDriverConstructor(driverConstructorList);
 
         }catch (IOException | ParseException e){
             e.printStackTrace();
