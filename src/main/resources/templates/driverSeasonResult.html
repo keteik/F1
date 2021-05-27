@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Driver Season Result</h1>
+    <tr th:each="driverResult: ${driverSeasonResult}">
+        <p th:text="'Race name: ' + ${driverResult.raceName}" />
+        <p th:text="'Race date: ' + ${driverResult.date}" />
+        <p th:text="'Race time: ' + ${driverResult.raceTime}" />
+        <p th:text="'Driver number: ' + ${driverResult.number}" />
+        <p th:text="'Driver position: ' + ${driverResult.position}" />
+        <p th:text="'Scored points: ' + ${driverResult.points}" />
+        <br>
+    </tr>
+<a href="/driver-season-result">Submit another driver</a>
+</body>
+</html>

@@ -16,6 +16,7 @@ public class DriverInformationApiCaller {
 
 
     DriverInformationApiCaller(String driverId) {
+
         this.driverId = driverId;
     }
 
@@ -43,6 +44,10 @@ public class DriverInformationApiCaller {
     }
 
     void getDriverInformation(Driver driver) {
+        if(driverId == ""){
+            driverId = "none";
+        }
+
         String url = "http://ergast.com/api/f1/drivers/";
         url += driverId;
         url += ".json";
@@ -67,14 +72,18 @@ public class DriverInformationApiCaller {
                 JSONObject info = (JSONObject) driverData.get(0);
 
                 driverInformation = new DriverInformation();
-                driverInformation.setDriverId(info.get("driverId").toString());
-                driverInformation.setNumber(info.get("permanentNumber").toString());
-                driverInformation.setCode(info.get("code").toString());
-                driverInformation.setUrl(info.get("url").toString());
-                driverInformation.setName(info.get("givenName").toString());
-                driverInformation.setSurname(info.get("familyName").toString());
-                driverInformation.setDateOfBirth(info.get("dateOfBirth").toString());
-                driverInformation.setNationality(info.get("nationality").toString());
+                try {
+                    driverInformation.setDriverId(info.get("driverId").toString());
+                    driverInformation.setNumber(info.get("permanentNumber").toString());
+                    driverInformation.setCode(info.get("code").toString());
+                    driverInformation.setUrl(info.get("url").toString());
+                    driverInformation.setName(info.get("givenName").toString());
+                    driverInformation.setSurname(info.get("familyName").toString());
+                    driverInformation.setDateOfBirth(info.get("dateOfBirth").toString());
+                    driverInformation.setNationality(info.get("nationality").toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 driver.setDriverInformation(driverInformation);
             }

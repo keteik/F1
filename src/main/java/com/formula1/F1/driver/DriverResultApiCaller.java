@@ -11,13 +11,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DriverConstructorApiCaller {
+public class DriverResultApiCaller {
     private String driverId;
-    private ArrayList<DriverConstructor> driverConstructorList = new ArrayList<>();
-    private DriverConstructor driverConstructor;
+    private String season;
+    private DriverResult driverResult;
+    private ArrayList<DriverResult> driverResultList = new ArrayList<>();
 
-    DriverConstructorApiCaller(String driverId){
+
+    DriverResultApiCaller(String driverId, String season){
         this.driverId = driverId;
+        this.season = season;
     }
 
     URL makeRequest(String target){
@@ -43,17 +46,22 @@ public class DriverConstructorApiCaller {
         return url;
     }
 
-    void getDriverConstructors(Driver driver){
-
+    void getDriverSeason(Driver driver) {
         if(driverId == ""){
             driverId = "none";
         }
+        try{
+            Integer a = Integer.parseInt(season);
+        }catch (NumberFormatException e){
+            season = "2050";
+        }
 
-        String url = "http://ergast.com/api/f1/drivers/";
+        String url = "http://ergast.com/api/f1/";
+        url += season;
+        url += "/drivers/";
         url += driverId;
-        url += "/constructors";
+        url += "/results";
         url += ".json";
-
 
         try{
             Scanner sc = new Scanner(makeRequest(url).openStream());
@@ -65,25 +73,33 @@ public class DriverConstructorApiCaller {
             }
             sc.close();
 
+
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(content);
-
             jsonData = (JSONObject) jsonData.get("MRData");
-            jsonData = (JSONObject) jsonData.get("ConstructorTable");
-            JSONArray driverConstructorData = (JSONArray) jsonData.get("Constructors");
+            jsonData = (JSONObject) jsonData.get("RaceTable");
+            JSONArray raceData = (JSONArray) jsonData.get("Races");
 
-            for (Object i : driverConstructorData) {
-                JSONObject info = (JSONObject) i;
-                driverConstructor = new DriverConstructor();
 
-                driverConstructor.setConstructorId(info.get("constructorId").toString());
-                driverConstructor.setUrl(info.get("url").toString());
-                driverConstructor.setName(info.get("name").toString());
-                driverConstructor.setNationality(info.get("nationality").toString());
+            for(int i = 0; i < raceData.size(); i++){
+                driverResult = new DriverResult();
 
-                driverConstructorList.add(driverConstructor);
+                JSONObject info = (JSONObject) raceData.get(i);
+
+                driverResult.setRaceName(info.get("raceName").toString());
+                driverResult.setDate(info.get("date").toString());
+                driverResult.setRaceTime(info.get("time").toString());
+
+                JSONArray raceResult = (JSONArray) info.get("Results");
+                JSONObject raceInfo = (JSONObject) raceResult.get(0);
+
+                driverResult.setNumber(raceInfo.get("number").toString());
+                driverResult.setPosition(raceInfo.get("position").toString());
+                driverResult.setPoints(raceInfo.get("points").toString());
+
+                driverResultList.add(driverResult);
             }
-            driver.setDriverConstructor(driverConstructorList);
+            driver.setDriverResult(driverResultList);
 
         }catch (IOException | ParseException e){
             e.printStackTrace();
