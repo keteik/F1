@@ -11,7 +11,7 @@ public class DriverConstructorController {
     @GetMapping("/driver-constructor")
     public String constructorForm(Model model) {
         model.addAttribute("driverId", new Driver());
-        return "driverConstructorGet";
+        return "driver/driverConstructorGet";
     }
 
     @PostMapping("/driver-constructor")
@@ -20,6 +20,6 @@ public class DriverConstructorController {
         apiCaller.getDriverConstructors(driver);
 
         model.addAttribute("driverConstructorList", driver.getDriverConstructor());
-        return "driverConstructorResult";
+        return "driver/driverConstructorResult";
     }
 }

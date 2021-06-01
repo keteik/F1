@@ -12,7 +12,7 @@ public class DriverInformationController {
     @GetMapping("/driver-information")
     public String driverForm(Model model) {
         model.addAttribute("driverId", new Driver());
-        return "driverInformationGet";
+        return "driver/driverInformationGet";
     }
 
     @PostMapping("/driver-information")
@@ -21,7 +21,7 @@ public class DriverInformationController {
         apiCaller.getDriverInformation(driver);
 
         model.addAttribute("driverInformation", driver.getDriverInformation());
-        return "driverInformationResult";
+        return "driver/driverInformationResult";
     }
 
 }

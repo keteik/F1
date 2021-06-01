@@ -37,7 +37,7 @@ public class DriverResultApiCaller {
             int status = conn.getResponseCode();
 
             if(status != 200){
-                throw  new RuntimeException("HttpResponseCode: " + status);
+                System.out.println("Code: " + status);
             }
 
         }catch (IOException e) {
@@ -62,6 +62,7 @@ public class DriverResultApiCaller {
         url += driverId;
         url += "/results";
         url += ".json";
+        url += "?limit=1000";
 
         try{
             Scanner sc = new Scanner(makeRequest(url).openStream());

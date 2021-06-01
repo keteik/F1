@@ -34,7 +34,7 @@ public class DriverInformationApiCaller {
             int status = conn.getResponseCode();
 
             if(status != 200){
-                throw  new RuntimeException("HttpResponseCode: " + status);
+                System.out.println("Code: " + status);
             }
 
         }catch (IOException e) {
@@ -51,6 +51,7 @@ public class DriverInformationApiCaller {
         String url = "http://ergast.com/api/f1/drivers/";
         url += driverId;
         url += ".json";
+        url += "?limit=1000";
 
         try{
             Scanner sc = new Scanner(makeRequest(url).openStream());
@@ -70,12 +71,27 @@ public class DriverInformationApiCaller {
 
             if(driverData.size() != 0) {
                 JSONObject info = (JSONObject) driverData.get(0);
+                String number;
+                String code;
 
                 driverInformation = new DriverInformation();
                 try {
+
+                    try{
+                        number = info.get("permanentNumber").toString();
+                    }catch (NullPointerException e){
+                        number = " ";
+                    }
+
+                    try{
+                        code = info.get("code").toString();
+                    }catch (NullPointerException e){
+                        code = " ";
+                    }
+
                     driverInformation.setDriverId(info.get("driverId").toString());
-                    driverInformation.setNumber(info.get("permanentNumber").toString());
-                    driverInformation.setCode(info.get("code").toString());
+                    driverInformation.setNumber(number);
+                    driverInformation.setCode(code);
                     driverInformation.setUrl(info.get("url").toString());
                     driverInformation.setName(info.get("givenName").toString());
                     driverInformation.setSurname(info.get("familyName").toString());
