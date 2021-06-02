@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Constructor Driver </h1>
+<tr th:each="scheduleSea: ${scheduleSeasonResult}">
+    <p th:text="'Round: ' + ${scheduleSea.getRound()}" />
+
+    <a th:href="@{${scheduleSea.getUrl()}}"><p th:text="'Wikipedia: ' + ${scheduleSea.getUrl()}" /></a>
+    <p th:text="'Race name: ' + ${scheduleSea.getRaceName()}" />
+    <p th:text="'Circuit name: ' + ${scheduleSea.getCircuitName()}" />
+
+    <br>
+</tr>
+<a href="/season-schedule">Submit season</a>
+</body>
+</html>

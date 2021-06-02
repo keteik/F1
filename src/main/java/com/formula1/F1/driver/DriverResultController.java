@@ -15,7 +15,7 @@ public class DriverResultController {
 
         model.addAttribute("driverId",driver);
         model.addAttribute("season", driver);
-        return "driverSeasonResultGet";
+        return "driver/driverSeasonResultGet";
     }
 
     @PostMapping("/driver-season-result")
@@ -25,6 +25,6 @@ public class DriverResultController {
         apiCaller.getDriverSeason(driver);
 
         model.addAttribute("driverSeasonResult", driver.getDriverResult());
-        return "driverSeasonResult";
+        return "driver/driverSeasonResult";
     }
 }
