@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Getting Started: Handling Form Submission</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Circuits</h1>
+<tr th:each="circuit: ${circuitSeason}">
+  <p th:text="'Circuit name: ' + ${circuit.getCircuitName()}" />
+
+  <a th:href="@{${circuit.getUrl()}}"><p th:text="'Wikipedia: ' + ${circuit.getUrl()}" /></a>
+  <p th:text="'Race name: ' + ${circuit.getLocality()}" />
+  <p th:text="'Circuit name: ' + ${circuit.getCountry()}" />
+
+  <br>
+</tr>
+<a href="/circuit-season">Submit season</a>
+</body>
+</html>

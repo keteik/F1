@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Getting Started: Handling Form Submission</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<tr th:if="${raceName != null}">
+  <h1  th:text="${raceName} + ' result '" />
+
+  <tr th:each="seasonResult: ${seasonRoundList}">
+    <p th:text="'Position: ' + ${seasonResult.getPosition()}" />
+    <p th:text="'Points: ' + ${seasonResult.getPoints()}" />
+    <p th:text="'Name: ' + ${seasonResult.getName()}" />
+    <p th:text="'Surname: ' + ${seasonResult.getSurname()}" />
+    <p th:text="'Constructor: ' + ${seasonResult.getConstructor()}" />
+    <br>
+
+  </tr>
+</tr>
+<a href="/season-round">Submit another result</a>
+</body>
+</html>
